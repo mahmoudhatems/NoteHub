@@ -26,7 +26,7 @@
 
 For inquiries or feedback, please reach out:
 
-- ![Email](https://img.icons8.com/ios/50/000000/email.png) **Email**: mahmoudhatem11220@gmail.com
+- ![Email](https://img.icons8.com/ios/50/000000/email.png) **Email**: mahmoudhatembuss@gmail.com
 - ![GitHub](https://img.icons8.com/ios/50/000000/github.png) **GitHub**: [mahmoudhatems](https://github.com/mahmoudhatems)
 
 Thank you for exploring **NoteHub**!
