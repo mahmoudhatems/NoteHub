@@ -4,29 +4,34 @@
 
 ## Features
 
-- ![Modern UI](https://img.icons8.com/ios/50/000000/design.png) **Modern UI**: Built with Jetpack Compose for a contemporary and user-friendly interface.
-- ![Local Storage](https://img.icons8.com/ios/50/000000/database.png) **Local Storage**: Utilizes Room Database to securely store and manage your notes.
-- ![Note Management](https://img.icons8.com/ios/50/000000/todo-list.png) **Note Management**: Easily create, edit, and delete notes with intuitive controls.
-- ![Search Functionality](https://img.icons8.com/ios/50/000000/search.png) **Search Functionality**: Quickly locate notes using the integrated search feature.
+- ✨ **Modern UI**: Built with Jetpack Compose for a contemporary and user-friendly interface.
+- 🗄️ **Local Storage**: Utilizes Room Database to securely store and manage your notes.
+- ✅ **Note Management**: Easily create, edit, and delete notes with intuitive controls.
+- 🔍 **Search Functionality**: Quickly locate notes using the integrated search feature.
 
 ## Dependencies
 
-- ![Jetpack Compose](https://img.icons8.com/ios/50/000000/jetpack.png) **Jetpack Compose**: For modern UI development.
-- ![Room Database](https://img.icons8.com/ios/50/000000/database.png) **Room Database**: For efficient local data management.
-- ![Kotlin](https://img.icons8.com/ios/50/000000/kotlin.png) **Kotlin**: The programming language used for development.
+- 🛠️ **Jetpack Compose**: For modern UI development.
+- 🗃️ **Room Database**: For efficient local data management.
+- 📝 **Kotlin**: The programming language used for development.
+
+## Architecture
+
+- 🔌 **Dependency Injection**: Implemented to manage dependencies and enhance scalability.
+- 🧩 **MVVM**: Utilizes Model-View-ViewModel architecture for a clear separation of concerns and efficient data management.
 
 ## Usage
 
-- ![Create Notes](https://img.icons8.com/ios/50/000000/add.png) **Create Notes**: Tap the '+' button to add a new note.
-- ![View Notes](https://img.icons8.com/ios/50/000000/visible.png) **View Notes**: Browse your notes in the main interface.
-- ![Edit Notes](https://img.icons8.com/ios/50/000000/edit.png) **Edit Notes**: Select a note to make changes.
-- ![Delete Notes](https://img.icons8.com/ios/50/000000/delete.png) **Delete Notes**: Remove notes using swipe gestures or the delete option.
+- ➕ **Create Notes**: Tap the '+' button to add a new note.
+- 👁️ **View Notes**: Browse your notes in the main interface.
+- ✏️ **Edit Notes**: Select a note to make changes.
+- 🗑️ **Delete Notes**: Remove notes using swipe gestures or the delete option.
 
 ## Contact
 
 For inquiries or feedback, please reach out:
 
-- ![Email](https://img.icons8.com/ios/50/000000/email.png) **Email**: mahmoudhatembuss@gmail.com
-- ![GitHub](https://img.icons8.com/ios/50/000000/github.png) **GitHub**: [mahmoudhatems](https://github.com/mahmoudhatems)
+- 🐰 **Email**: mahmoudhatembuss@gmail.com
+- 🖥️ **GitHub**: [mahmoudhatems](https://github.com/mahmoudhatems)
 
 Thank you for exploring **NoteHub**!
