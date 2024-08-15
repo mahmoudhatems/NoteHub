@@ -1,14 +1,12 @@
 package com.example.notehub.ui.screens
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -32,24 +30,19 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
             floatingActionButton = {
                 FloatingActionButton(
                     onClick = { showAddDialog.value = true },
-                    containerColor = Color(0xFF6200EE) // Purple 500
+                    containerColor = Color(0xFFD8B4F8) // Light Purple
                 ) {
                     Icon(imageVector = Icons.Default.Add, contentDescription = "Add Note", tint = Color.White)
                 }
             },
             topBar = {
                 TopAppBar(
-                    actions = {
-                        IconButton(onClick = { /* Handle more actions */ }) {
-                            Icon(Icons.Default.MoreVert, contentDescription = null, tint = Color.White)
-                        }
-                    },
-                    colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFF6200EE)), // Purple 500
-                    title = { Text(text = "NotesHub", fontSize = 30.sp, color = Color.White) }
+                    colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFFD4BDAC)),
+                    title = { Text(text = "NotesHub", fontSize = 24.sp, color = Color.White) }
                 )
             },
             bottomBar = {
-                BottomAppBar(containerColor = Color(0xFF6200EE)) { // Purple 500
+                BottomAppBar(containerColor = Color(0xFFD4BDAC)) {
                     IconButton(
                         modifier = Modifier.weight(1f),
                         onClick = { selectedIndex.value = 0 }
@@ -57,7 +50,7 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
                         Icon(
                             imageVector = Icons.Filled.Home,
                             contentDescription = "Home",
-                            tint = if (selectedIndex.value == 0) Color.White else Color(0xFFB0BEC5) // White if selected, Grey otherwise
+                            tint = if (selectedIndex.value == 0) Color(0xFF536493) else Color.Gray // Light Purple for selected
                         )
                     }
                     IconButton(
@@ -67,16 +60,17 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
                         Icon(
                             imageVector = Icons.Default.Favorite,
                             contentDescription = "Favorites",
-                            tint = if (selectedIndex.value == 1) Color.White else Color(0xFFB0BEC5) // White if selected, Grey otherwise
+                            tint = if (selectedIndex.value == 1) Color(0xFF536493) else Color.Gray // Light Purple for selected
                         )
                     }
                 }
             }
         ) { innerPadding ->
             Column(
-                modifier = Modifier.padding(innerPadding)
+                modifier = Modifier
+                    .padding(innerPadding)
+                    .background(Color.White) // Background color
             ) {
-                // Show add note dialog
                 if (showAddDialog.value) {
                     AddNoteDialog(
                         onSaveClick = { title, description ->
@@ -93,7 +87,6 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
                     )
                 }
 
-                // Show note details dialog
                 showNoteDialog.value?.let { note ->
                     NoteDetailsDialog(
                         note = note,
@@ -127,8 +120,8 @@ fun AddNoteDialog(
     val description = remember { mutableStateOf("") }
 
     AlertDialog(
-        onDismissRequest = { onDismissRequest() },
-        title = { Text(text = "Add New Note", color = Color(0xFF6200EE)) }, // Purple 500
+        onDismissRequest = onDismissRequest,
+        title = { Text(text = "Add New Note", color = Color(0xFFD8B4F8)) }, // Light Purple
         text = {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -151,7 +144,7 @@ fun AddNoteDialog(
         confirmButton = {
             Button(
                 onClick = { onSaveClick(title.value, description.value) },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6200EE)) // Purple 500
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD8B4F8)) // Light Purple
             ) {
                 Text(text = "Save Note", color = Color.White)
             }
@@ -178,7 +171,7 @@ fun NoteDetailsDialog(
 
     AlertDialog(
         onDismissRequest = onDismissRequest,
-        title = { Text(text = "Note Details", color = Color(0xFF6200EE)) }, // Purple 500
+        title = { Text(text = "Note Details", color = Color(0xFFD8B4F8)) }, // Light Purple
         text = {
             Column(
                 modifier = Modifier
@@ -213,7 +206,7 @@ fun NoteDetailsDialog(
                     )
                     onDismissRequest()
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6200EE)) // Purple 500
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD8B4F8)) // Light Purple
             ) {
                 Text(text = "Update", color = Color.White)
             }

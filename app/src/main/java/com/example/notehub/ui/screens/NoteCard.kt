@@ -21,7 +21,7 @@ fun NoteCard(
     onFavoriteClick: () -> Unit
 ) {
     OutlinedCard(
-        colors = CardDefaults.cardColors(containerColor = if (note.isFavorite) Color(0xFFFFF3E0) else Color(0xFFE0F7FA)),
+        colors = CardDefaults.cardColors(containerColor = if (note.isFavorite) Color(0xFFFFC7EA) else Color(0xFFCAEDFF)),
         elevation = CardDefaults.cardElevation(8.dp),
         modifier = Modifier
             .fillMaxWidth()
@@ -40,7 +40,7 @@ fun NoteCard(
                     .size(24.dp),
                 imageVector = if (note.isFavorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
                 contentDescription = null,
-                tint = if (note.isFavorite) Color(0xFFFFAB91) else Color(0xFFB0BEC5) // Red for favorite, Grey for non-favorite
+                tint = if (note.isFavorite) Color(0xFFD8B4F8) else Color(0xFFB0BEC5)
             )
             Text(
                 text = note.title,

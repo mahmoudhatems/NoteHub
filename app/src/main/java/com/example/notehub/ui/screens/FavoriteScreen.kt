@@ -28,7 +28,7 @@ fun FavoriteScreenContent(
             NoteCard(
                 note = note,
                 onClick = {
-                    onNoteClick(note) // Call onNoteClick when a note is clicked
+                    onNoteClick(note)
                 },
                 onFavoriteClick = {
                     noteViewModel.updateNote(note.copy(isFavorite = !note.isFavorite))
