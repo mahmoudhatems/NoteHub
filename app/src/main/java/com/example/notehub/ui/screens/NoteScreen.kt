@@ -1,17 +1,40 @@
 package com.example.notehub.ui.screens
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
@@ -30,37 +53,66 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
             floatingActionButton = {
                 FloatingActionButton(
                     onClick = { showAddDialog.value = true },
-                    containerColor = Color(0xFFD8B4F8) // Light Purple
+                    containerColor = Color(0xFFD8B4F8),
+                    shape = MaterialTheme.shapes.large,
+                    elevation = FloatingActionButtonDefaults.elevation(8.dp)
                 ) {
-                    Icon(imageVector = Icons.Default.Add, contentDescription = "Add Note", tint = Color.White)
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Add Note",
+                        tint = Color.White
+                    )
                 }
             },
             topBar = {
                 TopAppBar(
-                    colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFFD4BDAC)),
-                    title = { Text(text = "NotesHub", fontSize = 24.sp, color = Color.White) }
+                    title = {
+                        Text(
+                            text = "NotesHub",
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
+                        )
+                    },
+
+                    colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFF536493))
                 )
             },
             bottomBar = {
-                BottomAppBar(containerColor = Color(0xFFD4BDAC)) {
+                BottomAppBar(
+                    containerColor = Color(0xFF536493),
+                    modifier = Modifier
+                        .height(70.dp)
+                        .clip(RectangleShape)
+                ) {
                     IconButton(
                         modifier = Modifier.weight(1f),
                         onClick = { selectedIndex.value = 0 }
                     ) {
+                        val color by animateColorAsState(
+                            if (selectedIndex.value == 0) Color(
+                                0xFFD8B4F8
+                            ) else Color.Gray
+                        )
                         Icon(
                             imageVector = Icons.Filled.Home,
                             contentDescription = "Home",
-                            tint = if (selectedIndex.value == 0) Color(0xFF536493) else Color.Gray // Light Purple for selected
+                            tint = color
                         )
                     }
                     IconButton(
                         modifier = Modifier.weight(1f),
                         onClick = { selectedIndex.value = 1 }
                     ) {
+                        val color by animateColorAsState(
+                            if (selectedIndex.value == 1) Color(
+                                0xFFD8B4F8
+                            ) else Color.Gray
+                        )
                         Icon(
                             imageVector = Icons.Default.Favorite,
                             contentDescription = "Favorites",
-                            tint = if (selectedIndex.value == 1) Color(0xFF536493) else Color.Gray // Light Purple for selected
+                            tint = color
                         )
                     }
                 }
@@ -70,6 +122,7 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
                 modifier = Modifier
                     .padding(innerPadding)
                     .background(Color.White) // Background color
+                    .clip(MaterialTheme.shapes.medium)
             ) {
                 if (showAddDialog.value) {
                     AddNoteDialog(
@@ -121,7 +174,7 @@ fun AddNoteDialog(
 
     AlertDialog(
         onDismissRequest = onDismissRequest,
-        title = { Text(text = "Add New Note", color = Color(0xFFD8B4F8)) }, // Light Purple
+        title = { Text(text = "Add New Note", color = Color(0xFF526292)) },
         text = {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -144,7 +197,7 @@ fun AddNoteDialog(
         confirmButton = {
             Button(
                 onClick = { onSaveClick(title.value, description.value) },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD8B4F8)) // Light Purple
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF526292))
             ) {
                 Text(text = "Save Note", color = Color.White)
             }
@@ -152,7 +205,7 @@ fun AddNoteDialog(
         dismissButton = {
             Button(
                 onClick = { onDismissRequest() },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB0BEC5)) // Grey
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB0BEC5))
             ) {
                 Text(text = "Cancel", color = Color.White)
             }
@@ -171,7 +224,7 @@ fun NoteDetailsDialog(
 
     AlertDialog(
         onDismissRequest = onDismissRequest,
-        title = { Text(text = "Note Details", color = Color(0xFFD8B4F8)) }, // Light Purple
+        title = { Text(text = "Note Details", color = Color(0xFF526292)) },
         text = {
             Column(
                 modifier = Modifier
@@ -206,7 +259,7 @@ fun NoteDetailsDialog(
                     )
                     onDismissRequest()
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD8B4F8)) // Light Purple
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF526292))
             ) {
                 Text(text = "Update", color = Color.White)
             }
@@ -214,7 +267,7 @@ fun NoteDetailsDialog(
         dismissButton = {
             Button(
                 onClick = { onDismissRequest() },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB0BEC5)) // Grey
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB0BEC5))
             ) {
                 Text(text = "Dismiss", color = Color.White)
             }
