@@ -1,7 +1,7 @@
 package com.example.notehub.data.repository
 
 import com.example.notehub.data.db.Note
-import com.example.notehub.data.db.NotesDao
+import com.example.notehub.data.db.NoteDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,9 +11,9 @@ import javax.inject.Singleton
 
 @Singleton
 class NotesRepository @Inject constructor(
-    private val notesDao: NotesDao
+    private val notesDao: NoteDao
 ) {
-    fun getAllNotes() = notesDao.getAllNotes()
+    suspend fun getAllNotes() = notesDao.getAll()
 
     suspend fun insert(note: Note) {
         notesDao.insert(note)
@@ -23,7 +23,7 @@ class NotesRepository @Inject constructor(
         notesDao.update(note)
     }
 
-    suspend fun delete(note: Note) {
-        notesDao.delete(note)
+    suspend fun delete() {
+        notesDao.deleteAll()
     }
 }

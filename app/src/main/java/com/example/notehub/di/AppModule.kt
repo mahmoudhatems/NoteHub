@@ -2,7 +2,7 @@ package com.example.notehub.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.notehub.data.db.NotesDao
+import com.example.notehub.data.db.NoteDao
 import com.example.notehub.data.db.NotesDatabase
 import com.example.notehub.data.repository.NotesRepository
 import dagger.Module
@@ -26,14 +26,14 @@ object AppModule {
         ).build()
     }
     @Provides
-    fun provideNotesDao(database: NotesDatabase): NotesDao {
+    fun provideNotesDao(database: NotesDatabase): NoteDao {
         return database.notesDao() ?: throw IllegalStateException("NotesDao cannot be null")
     }
 
 
     @Provides
     @Singleton
-    fun provideNotesRepository(notesDao: NotesDao): NotesRepository {
+    fun provideNotesRepository(notesDao: NoteDao): NotesRepository {
         return NotesRepository(notesDao)
     }
 }

@@ -2,7 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     kotlin("kapt")
-    id("dagger.hilt.android.plugin")
+    id("com.google.dagger.hilt.android")
+    id ("dagger.hilt.android.plugin")
 }
 
 android {
@@ -52,25 +53,39 @@ android {
 }
 
 dependencies {
-    // Room dependencies
-    implementation("androidx.room:room-runtime:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.2")
+    implementation("com.google.dagger:hilt-android:2.50")
+    kapt("com.google.dagger:hilt-android-compiler:2.50")
 
-    implementation("androidx.navigation:navigation-compose:2.7.2")
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
+    implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
+    // For Dagger Hilt to work with Jetpack Compose
+    implementation ("androidx.hilt:hilt-navigation-compose:1.2.0")
+    val voyagerVersion = "1.1.0-beta02"
 
-    // Hilt dependencies
-    implementation("com.google.dagger:hilt-android:2.51.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    // Multiplatform
 
-    // Testing dependencies
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.6.0-alpha01")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.6.0-alpha01")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.0-alpha01")
+    // Navigator
+    implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
+    // BottomSheetNavigator
+    implementation("cafe.adriel.voyager:voyager-bottom-sheet-navigator:$voyagerVersion")
+
+    // TabNavigator
+    implementation("cafe.adriel.voyager:voyager-tab-navigator:$voyagerVersion")
+
+
+    // Room components
+    val room_version = "2.6.1"
+
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+
+    // To use Kotlin annotation processing tool (kapt)
+    kapt("androidx.room:room-compiler:$room_version")
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:$room_version")
+
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

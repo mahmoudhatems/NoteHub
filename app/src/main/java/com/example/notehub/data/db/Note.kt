@@ -5,9 +5,11 @@ package com.example.notehub.data.db
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "notes")
+
+@Entity
 data class Note(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val title: String,
-    val content: String
+    val title :String,
+    val description :String,
+    val isFavorite :Boolean
 )
