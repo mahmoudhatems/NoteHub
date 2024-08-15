@@ -75,6 +75,7 @@ fun <T> SwipeToDeleteContainer(
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DeleteBackground(state: SwipeToDismissBoxState) {
@@ -87,7 +88,7 @@ fun DeleteBackground(state: SwipeToDismissBoxState) {
         modifier = Modifier
             .fillMaxSize()
             .background(color)
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = 12.dp),
         horizontalArrangement = Arrangement.End,
         verticalAlignment = Alignment.CenterVertically
     ) {
