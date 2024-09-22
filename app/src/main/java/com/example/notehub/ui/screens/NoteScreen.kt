@@ -1,9 +1,12 @@
 package com.example.notehub.ui.screens
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -11,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
@@ -30,16 +34,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
+import com.example.notehub.R
 import com.example.notehub.data.db.Note
 import com.example.notehub.di.NoteViewModel
+import com.example.notehub.ui.theme.blackColor
+import com.example.notehub.ui.theme.whiteColor
 
 class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -74,8 +83,12 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
                             color = Color.White
                         )
                     },
-
-                    colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFF252525))
+                    actions = {
+                        IconButton(onClick = { /*TODO*/ }) {
+                            Icon(imageVector = Icons.Default.Search, contentDescription = "Search", tint = whiteColor)
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(containerColor = blackColor)
                 )
             },
             bottomBar = {
@@ -90,9 +103,8 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
                         onClick = { selectedIndex.value = 0 }
                     ) {
                         val color by animateColorAsState(
-                            if (selectedIndex.value == 0) Color(
-                                0xFFD8B4F8
-                            ) else Color.Gray
+                            if (selectedIndex.value == 0) Color(0xFFD8B4F8)
+                            else Color.Gray
                         )
                         Icon(
                             imageVector = Icons.Filled.Home,
@@ -105,9 +117,8 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
                         onClick = { selectedIndex.value = 1 }
                     ) {
                         val color by animateColorAsState(
-                            if (selectedIndex.value == 1) Color(
-                                0xFFD8B4F8
-                            ) else Color.Gray
+                            if (selectedIndex.value == 1) Color(0xFFD8B4F8)
+                            else Color.Gray
                         )
                         Icon(
                             imageVector = Icons.Default.Favorite,
@@ -121,7 +132,7 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
             Column(
                 modifier = Modifier
                     .padding(innerPadding)
-                    .background(Color.White) // Background color
+                    .background(Color.White)
                     .clip(MaterialTheme.shapes.medium)
             ) {
                 if (showAddDialog.value) {
@@ -163,6 +174,7 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
         }
     }
 }
+
 
 @Composable
 fun AddNoteDialog(
@@ -273,4 +285,32 @@ fun NoteDetailsDialog(
             }
         }
     )
+}
+
+
+@Composable
+fun EmptyNotesScreen() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.rafiki),
+                contentDescription = "Empty Notes",
+                Modifier.height(200.dp
+                )
+            )
+            Text(
+                text = "Create your first note!",
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+        }
+    }
 }
