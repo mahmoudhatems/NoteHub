@@ -75,7 +75,7 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
                         )
                     },
 
-                    colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFF536493))
+                    colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFF252525))
                 )
             },
             bottomBar = {
