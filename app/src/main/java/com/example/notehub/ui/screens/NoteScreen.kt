@@ -6,9 +6,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -20,6 +22,7 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
@@ -39,6 +42,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -47,8 +51,10 @@ import cafe.adriel.voyager.core.screen.Screen
 import com.example.notehub.R
 import com.example.notehub.data.db.Note
 import com.example.notehub.di.NoteViewModel
-import com.example.notehub.ui.theme.blackColor
-import com.example.notehub.ui.theme.whiteColor
+import com.example.notehub.ui.theme.pornhubBlack
+import com.example.notehub.ui.theme.pornhubGray
+import com.example.notehub.ui.theme.pornhubOrange
+import com.example.notehub.ui.theme.pornhubWhite
 
 class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -59,20 +65,27 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
         val showNoteDialog = remember { mutableStateOf<Note?>(null) }
 
         Scaffold(
+            containerColor = pornhubBlack,
+           modifier = Modifier.background(color =  pornhubBlack),
             floatingActionButton = {
                 FloatingActionButton(
                     onClick = { showAddDialog.value = true },
-                    containerColor = Color(0xFFD8B4F8),
+                    containerColor = pornhubOrange,
                     shape = MaterialTheme.shapes.large,
-                    elevation = FloatingActionButtonDefaults.elevation(8.dp)
+                    elevation = FloatingActionButtonDefaults.elevation(8.dp),
+                    modifier = Modifier
+                        .offset(y = (60).dp) // Moves the FAB upwards to overlap the BottomAppBar
+                        .padding(16.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Default.Add,
                         contentDescription = "Add Note",
-                        tint = Color.White
+                        tint = pornhubWhite  // White textcolor = pornhubWhite
                     )
                 }
             },
+            floatingActionButtonPosition = FabPosition.Center,
+           //  isFloatingActionButtonDocked = true, // Make FAB dock to BottomAppBar
             topBar = {
                 TopAppBar(
                     title = {
@@ -80,30 +93,30 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
                             text = "NotesHub",
                             fontSize = 24.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color.White
+                            color = pornhubWhite  // White text
                         )
                     },
                     actions = {
                         IconButton(onClick = { /*TODO*/ }) {
-                            Icon(imageVector = Icons.Default.Search, contentDescription = "Search", tint = whiteColor)
+                            Icon(imageVector = Icons.Default.Search, contentDescription = "Search", tint = pornhubWhite)
                         }
                     },
-                    colors = TopAppBarDefaults.topAppBarColors(containerColor = blackColor)
+                    colors = TopAppBarDefaults.topAppBarColors(containerColor = pornhubBlack)
                 )
             },
             bottomBar = {
                 BottomAppBar(
-                    containerColor = Color(0xFF536493),
+                    containerColor = pornhubGray,
                     modifier = Modifier
-                        .height(70.dp)
+                        .height(60.dp)
                         .clip(RectangleShape)
                 ) {
                     IconButton(
                         modifier = Modifier.weight(1f),
                         onClick = { selectedIndex.value = 0 }
-                    ) {
+                    ){
                         val color by animateColorAsState(
-                            if (selectedIndex.value == 0) Color(0xFFD8B4F8)
+                            if (selectedIndex.value == 0) pornhubOrange
                             else Color.Gray
                         )
                         Icon(
@@ -112,12 +125,16 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
                             tint = color
                         )
                     }
+
+                    Spacer(modifier = Modifier.weight(0.4f)) // Center alignment for FAB
+
+                    // Favorite Button
                     IconButton(
                         modifier = Modifier.weight(1f),
                         onClick = { selectedIndex.value = 1 }
                     ) {
                         val color by animateColorAsState(
-                            if (selectedIndex.value == 1) Color(0xFFD8B4F8)
+                            if (selectedIndex.value == 1) pornhubOrange
                             else Color.Gray
                         )
                         Icon(
@@ -132,7 +149,7 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
             Column(
                 modifier = Modifier
                     .padding(innerPadding)
-                    .background(Color.White)
+                    .background(pornhubBlack)
                     .clip(MaterialTheme.shapes.medium)
             ) {
                 if (showAddDialog.value) {
@@ -186,7 +203,7 @@ fun AddNoteDialog(
 
     AlertDialog(
         onDismissRequest = onDismissRequest,
-        title = { Text(text = "Add New Note", color = Color(0xFF526292)) },
+        title = { Text(text = "Add New Note", color = pornhubOrange) },
         text = {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -209,17 +226,17 @@ fun AddNoteDialog(
         confirmButton = {
             Button(
                 onClick = { onSaveClick(title.value, description.value) },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF526292))
+                colors = ButtonDefaults.buttonColors(containerColor =pornhubOrange)
             ) {
-                Text(text = "Save Note", color = Color.White)
+                Text(text = "Save Note", color =pornhubWhite)
             }
         },
         dismissButton = {
             Button(
                 onClick = { onDismissRequest() },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB0BEC5))
+                colors = ButtonDefaults.buttonColors(containerColor = pornhubWhite)
             ) {
-                Text(text = "Cancel", color = Color.White)
+                Text(text = "Cancel", color = pornhubBlack)
             }
         }
     )
@@ -236,7 +253,7 @@ fun NoteDetailsDialog(
 
     AlertDialog(
         onDismissRequest = onDismissRequest,
-        title = { Text(text = "Note Details", color = Color(0xFF526292)) },
+        title = { Text(text = "Note Details", color = pornhubOrange) },
         text = {
             Column(
                 modifier = Modifier
@@ -271,17 +288,17 @@ fun NoteDetailsDialog(
                     )
                     onDismissRequest()
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF526292))
+                colors = ButtonDefaults.buttonColors(containerColor =pornhubOrange)
             ) {
-                Text(text = "Update", color = Color.White)
+                Text(text = "Update", color =pornhubWhite)
             }
         },
         dismissButton = {
             Button(
                 onClick = { onDismissRequest() },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB0BEC5))
+                colors = ButtonDefaults.buttonColors(containerColor = pornhubGray)
             ) {
-                Text(text = "Dismiss", color = Color.White)
+                Text(text = "Dismiss", color =pornhubWhite)
             }
         }
     )
@@ -303,13 +320,17 @@ fun EmptyNotesScreen() {
             Image(
                 painter = painterResource(id = R.drawable.rafiki),
                 contentDescription = "Empty Notes",
-                Modifier.height(200.dp
-                )
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                     .height(300.dp)
+                    .fillMaxWidth()
+                    .padding(16.dp)
             )
             Text(
                 text = "Create your first note!",
                 style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(top = 16.dp)
+                modifier = Modifier.padding(top = 16.dp),
+                color = Color.White
             )
         }
     }

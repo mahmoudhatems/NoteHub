@@ -12,5 +12,12 @@ val Pink40 = Color(0xFF7D5260)
 val blackColor = Color(0xFF252525)
 val whiteColor = Color(0xFFffffff)
 val lightBlueColor = Color(0xFFD8B4F8)
+val lightBlackColor = Color(0xFF454545)
+
+val pornhubBlack = Color(0xFF1D1D1D)
+val pornhubGray = Color(0xFF333333)
+val pornhubOrange = Color(0xFFFF9900)
+val pornhubWhite = Color(0xFFFFFFFF)
+
 
 
