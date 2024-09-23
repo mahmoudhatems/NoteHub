@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.example.notehub.data.db.Note
 import com.example.notehub.di.NoteViewModel
 import com.example.notehub.ui.SwipeToDeleteContainer
-import com.example.notehub.ui.theme.pornhubBlack
+import com.example.notehub.ui.theme.mainBlack
 
 @Composable
 fun HomeScreenContent(
@@ -37,7 +37,7 @@ fun HomeScreenContent(
             columns = GridCells.Adaptive(minSize = 150.dp), // Adjusted for better layout
             modifier = Modifier
                 .fillMaxWidth()
-                .background(color = pornhubBlack),
+                .background(color = mainBlack),
             contentPadding = PaddingValues(16.dp), // Increased padding for better spacing
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
