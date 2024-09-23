@@ -85,7 +85,7 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
                 }
             },
             floatingActionButtonPosition = FabPosition.Center,
-           //  isFloatingActionButtonDocked = true, // Make FAB dock to BottomAppBar
+           //  hjkjhgisFloatingActionButtonDocked = true, // Make FAB dock to BottomAppBar
             topBar = {
                 TopAppBar(
                     title = {
