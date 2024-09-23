@@ -17,7 +17,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
@@ -51,10 +51,10 @@ import cafe.adriel.voyager.core.screen.Screen
 import com.example.notehub.R
 import com.example.notehub.data.db.Note
 import com.example.notehub.di.NoteViewModel
-import com.example.notehub.ui.theme.pornhubBlack
-import com.example.notehub.ui.theme.pornhubGray
-import com.example.notehub.ui.theme.pornhubOrange
-import com.example.notehub.ui.theme.pornhubWhite
+import com.example.notehub.ui.theme.mainBlack
+import com.example.notehub.ui.theme.mainGray
+import com.example.notehub.ui.theme.mainOrange
+import com.example.notehub.ui.theme.mainWhite
 
 class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -65,12 +65,12 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
         val showNoteDialog = remember { mutableStateOf<Note?>(null) }
 
         Scaffold(
-            containerColor = pornhubBlack,
-           modifier = Modifier.background(color =  pornhubBlack),
+            containerColor = mainBlack,
+           modifier = Modifier.background(color =  mainBlack),
             floatingActionButton = {
                 FloatingActionButton(
                     onClick = { showAddDialog.value = true },
-                    containerColor = pornhubGray,
+                    containerColor = mainGray,
                     shape = MaterialTheme.shapes.extraLarge,
                     elevation = FloatingActionButtonDefaults.elevation(8.dp),
                     modifier = Modifier
@@ -80,7 +80,7 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
                     Icon(
                         imageVector = Icons.Default.Add,
                         contentDescription = "Add Note",
-                        tint = pornhubOrange  // White textcolor = pornhubWhite
+                        tint = mainOrange  // White textcolor = pornhubWhite
                     )
                 }
             },
@@ -93,20 +93,20 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
                             text = "NotesHub",
                             fontSize = 24.sp,
                             fontWeight = FontWeight.Bold,
-                            color = pornhubWhite  // White text
+                            color = mainWhite  // White text
                         )
                     },
                     actions = {
                         IconButton(onClick = { /*TODO*/ }) {
-                            Icon(imageVector = Icons.Default.Search, contentDescription = "Search", tint = pornhubWhite)
+                            Icon(imageVector = Icons.Default.Menu, contentDescription = "Search", tint = mainWhite)
                         }
                     },
-                    colors = TopAppBarDefaults.topAppBarColors(containerColor = pornhubBlack)
+                    colors = TopAppBarDefaults.topAppBarColors(containerColor = mainBlack)
                 )
             },
             bottomBar = {
                 BottomAppBar(
-                    containerColor = pornhubGray,
+                    containerColor = mainGray,
                     modifier = Modifier
                         .height(60.dp)
                         .clip(RoundedCornerShape(150.dp, 150.dp, 0.dp, 0.dp))
@@ -116,7 +116,7 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
                         onClick = { selectedIndex.value = 0 }
                     ){
                         val color by animateColorAsState(
-                            if (selectedIndex.value == 0) pornhubOrange
+                            if (selectedIndex.value == 0) mainOrange
                             else Color.Gray
                         )
                         Icon(
@@ -134,7 +134,7 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
                         onClick = { selectedIndex.value = 1 }
                     ) {
                         val color by animateColorAsState(
-                            if (selectedIndex.value == 1) pornhubOrange
+                            if (selectedIndex.value == 1) mainOrange
                             else Color.Gray
                         )
                         Icon(
@@ -149,7 +149,7 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
             Column(
                 modifier = Modifier
                     .padding(innerPadding)
-                    .background(pornhubBlack)
+                    .background(mainBlack)
                     .clip(MaterialTheme.shapes.medium)
             ) {
                 if (showAddDialog.value) {
@@ -192,7 +192,6 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
     }
 }
 
-
 @Composable
 fun AddNoteDialog(
     onSaveClick: (String, String) -> Unit,
@@ -202,8 +201,9 @@ fun AddNoteDialog(
     val description = remember { mutableStateOf("") }
 
     AlertDialog(
+        modifier = Modifier.background(mainBlack),
         onDismissRequest = onDismissRequest,
-        title = { Text(text = "Add New Note", color = pornhubOrange) },
+        title = { Text(text = "Add New Note", color = mainOrange) },
         text = {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -226,17 +226,17 @@ fun AddNoteDialog(
         confirmButton = {
             Button(
                 onClick = { onSaveClick(title.value, description.value) },
-                colors = ButtonDefaults.buttonColors(containerColor =pornhubOrange)
+                colors = ButtonDefaults.buttonColors(containerColor = mainOrange)
             ) {
-                Text(text = "Save Note", color =pornhubWhite)
+                Text(text = "Save Note", color = mainWhite)
             }
         },
         dismissButton = {
             Button(
                 onClick = { onDismissRequest() },
-                colors = ButtonDefaults.buttonColors(containerColor = pornhubWhite)
+                colors = ButtonDefaults.buttonColors(containerColor = mainGray)
             ) {
-                Text(text = "Cancel", color = pornhubBlack)
+                Text(text = "Cancel", color = mainWhite)
             }
         }
     )
@@ -251,9 +251,9 @@ fun NoteDetailsDialog(
     val title = remember { mutableStateOf(note.title) }
     val description = remember { mutableStateOf(note.description) }
 
-    AlertDialog(
+    AlertDialog( shape = RoundedCornerShape(24.dp),
         onDismissRequest = onDismissRequest,
-        title = { Text(text = "Note Details", color = pornhubOrange) },
+        title = { Text(text = "Note Details", color = mainOrange) },
         text = {
             Column(
                 modifier = Modifier
@@ -264,15 +264,15 @@ fun NoteDetailsDialog(
                 OutlinedTextField(
                     value = title.value,
                     onValueChange = { title.value = it },
-                    label = { Text(text = "Title") },
+                    label = {Text(text = "Title", color = mainBlack) },
                     modifier = Modifier.fillMaxWidth(),
-                    shape = MaterialTheme.shapes.medium
+
                 )
 
                 OutlinedTextField(
                     value = description.value,
                     onValueChange = { description.value = it },
-                    label = { Text(text = "Description") },
+                    label = { Text(text = "Description", color = mainBlack) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(150.dp),
@@ -288,22 +288,21 @@ fun NoteDetailsDialog(
                     )
                     onDismissRequest()
                 },
-                colors = ButtonDefaults.buttonColors(containerColor =pornhubOrange)
+                colors = ButtonDefaults.buttonColors(containerColor = mainOrange)
             ) {
-                Text(text = "Update", color =pornhubWhite)
+                Text(text = "Update", color = mainWhite)
             }
         },
         dismissButton = {
             Button(
                 onClick = { onDismissRequest() },
-                colors = ButtonDefaults.buttonColors(containerColor = pornhubGray)
+                colors = ButtonDefaults.buttonColors(containerColor = mainGray)
             ) {
-                Text(text = "Dismiss", color =pornhubWhite)
+                Text(text = "Dismiss", color = mainWhite)
             }
         }
     )
 }
-
 
 @Composable
 fun EmptyNotesScreen() {
@@ -318,7 +317,7 @@ fun EmptyNotesScreen() {
             verticalArrangement = Arrangement.Center
         ) {
             Image(
-                painter = painterResource(id = R.drawable.rafiki),
+                painter = painterResource(id = R.drawable.takenotes),
                 contentDescription = "Empty Notes",
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
