@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
@@ -41,7 +42,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -70,8 +70,8 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
             floatingActionButton = {
                 FloatingActionButton(
                     onClick = { showAddDialog.value = true },
-                    containerColor = pornhubOrange,
-                    shape = MaterialTheme.shapes.large,
+                    containerColor = pornhubGray,
+                    shape = MaterialTheme.shapes.extraLarge,
                     elevation = FloatingActionButtonDefaults.elevation(8.dp),
                     modifier = Modifier
                         .offset(y = (60).dp) // Moves the FAB upwards to overlap the BottomAppBar
@@ -80,7 +80,7 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
                     Icon(
                         imageVector = Icons.Default.Add,
                         contentDescription = "Add Note",
-                        tint = pornhubWhite  // White textcolor = pornhubWhite
+                        tint = pornhubOrange  // White textcolor = pornhubWhite
                     )
                 }
             },
@@ -109,7 +109,7 @@ class NoteScreen(val noteViewModel: NoteViewModel) : Screen {
                     containerColor = pornhubGray,
                     modifier = Modifier
                         .height(60.dp)
-                        .clip(RectangleShape)
+                        .clip(RoundedCornerShape(150.dp, 150.dp, 0.dp, 0.dp))
                 ) {
                     IconButton(
                         modifier = Modifier.weight(1f),
