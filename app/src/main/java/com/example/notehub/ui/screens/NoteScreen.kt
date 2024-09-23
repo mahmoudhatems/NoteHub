@@ -201,7 +201,7 @@ fun AddNoteDialog(
     val description = remember { mutableStateOf("") }
 
     AlertDialog(
-        modifier = Modifier.background(mainBlack),
+       // modifier = Modifier.background(mainBlack),
         onDismissRequest = onDismissRequest,
         title = { Text(text = "Add New Note", color = mainOrange) },
         text = {
